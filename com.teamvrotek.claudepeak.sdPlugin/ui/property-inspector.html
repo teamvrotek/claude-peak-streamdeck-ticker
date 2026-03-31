@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Claude Peak Ticker Settings</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            font-size: 12px;
+            color: #d8d8d8;
+            background: #2d2d2d;
+            margin: 0;
+            padding: 10px;
+        }
+
+        .sdpi-wrapper {
+            margin-bottom: 20px;
+        }
+
+        .sdpi-item {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 12px;
+        }
+
+        .sdpi-item-label {
+            margin-bottom: 4px;
+            color: #9b9b9b;
+            font-size: 11px;
+        }
+
+        .sdpi-item-value select {
+            width: 100%;
+            padding: 6px 8px;
+            border: 1px solid #404040;
+            border-radius: 3px;
+            background: #1a1a1a;
+            color: #d8d8d8;
+            font-size: 12px;
+            box-sizing: border-box;
+        }
+
+        .sdpi-item-value select:focus {
+            outline: none;
+            border-color: #d97757;
+        }
+
+        .sdpi-heading {
+            font-size: 13px;
+            font-weight: 600;
+            margin: 15px 0 10px 0;
+            padding-bottom: 5px;
+            border-bottom: 1px solid #404040;
+        }
+
+        .sdpi-info {
+            font-size: 10px;
+            color: #808080;
+            margin-top: 4px;
+            line-height: 1.4;
+        }
+
+        .sdpi-section {
+            background: #252525;
+            border-radius: 4px;
+            padding: 10px;
+            margin-bottom: 15px;
+        }
+
+        .sdpi-section-title {
+            font-size: 11px;
+            font-weight: 600;
+            color: #9b9b9b;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        .status-box {
+            background: #1a1a1a;
+            border: 1px solid #404040;
+            border-radius: 4px;
+            padding: 10px;
+            margin-bottom: 15px;
+            font-family: "Courier New", monospace;
+            font-size: 11px;
+            line-height: 1.6;
+            color: #b0b0b0;
+            white-space: pre;
+        }
+    </style>
+</head>
+<body>
+    <div class="sdpi-wrapper">
+        <div class="sdpi-heading">Claude Peak Ticker</div>
+
+        <!-- Live Status -->
+        <div class="status-box" id="statusBox">Fetching peak status...</div>
+
+        <!-- Display Settings -->
+        <div class="sdpi-section">
+            <div class="sdpi-section-title">Display</div>
+
+            <div class="sdpi-item">
+                <div class="sdpi-item-label">Color Theme</div>
+                <div class="sdpi-item-value">
+                    <select id="colorTheme">
+                        <option value="claude" selected>Claude (terracotta)</option>
+                        <option value="blue">Blue</option>
+                        <option value="green">Green</option>
+                        <option value="purple">Purple</option>
+                        <option value="teal">Teal</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="sdpi-item">
+                <div class="sdpi-item-label">Poll Interval</div>
+                <div class="sdpi-item-value">
+                    <select id="pollInterval">
+                        <option value="15">15 seconds</option>
+                        <option value="30" selected>30 seconds</option>
+                        <option value="60">1 minute</option>
+                        <option value="120">2 minutes</option>
+                    </select>
+                </div>
+                <div class="sdpi-info">
+                    How often the button display updates. The API is polled every 5 minutes regardless.
+                </div>
+            </div>
+        </div>
+
+        <div class="sdpi-info">
+            Peak status provided by promoclock.co. Click the button to open claude-spend.
+        </div>
+    </div>
+
+<script>
+var websocket = null;
+var uuid = null;
+var actionInfo = {};
+
+function connectElgatoStreamDeckSocket(inPort, inPropertyInspectorUUID, inRegisterEvent, inInfo, inActionInfo) {
+    uuid = inPropertyInspectorUUID;
+    actionInfo = JSON.parse(inActionInfo);
+
+    websocket = new WebSocket("ws://127.0.0.1:" + inPort);
+
+    websocket.onopen = function() {
+        websocket.send(JSON.stringify({
+            event: inRegisterEvent,
+            uuid: inPropertyInspectorUUID
+        }));
+
+        loadSettings(actionInfo.payload.settings);
+
+        websocket.send(JSON.stringify({
+            event: "sendToPlugin",
+            context: uuid,
+            action: actionInfo.action,
+            payload: { type: "getStatus" }
+        }));
+    };
+
+    websocket.onmessage = function(evt) {
+        var msg = JSON.parse(evt.data);
+
+        if (msg.event === "didReceiveSettings") {
+            loadSettings(msg.payload.settings);
+        }
+
+        if (msg.event === "sendToPropertyInspector") {
+            handlePluginMessage(msg.payload);
+        }
+    };
+}
+
+function handlePluginMessage(payload) {
+    if (!payload) return;
+    var box = document.getElementById('statusBox');
+
+    if (payload.type === 'statusUpdate') {
+        var d = payload.data;
+        var lines = [];
+        if (d.isPeak === null) {
+            lines.push('Status: Fetching...');
+        } else {
+            lines.push('Status:  ' + (d.isPeak ? 'PEAK HOURS' : 'OFF-PEAK'));
+            if (d.minutesUntilChange !== null) {
+                var h = Math.floor(d.minutesUntilChange / 60);
+                var m = d.minutesUntilChange % 60;
+                var timeStr = h > 0 ? h + 'h ' + m + 'm' : m + 'm';
+                lines.push('Changes: in ' + timeStr);
+            }
+            if (d.label) lines.push('Info:    ' + d.label);
+        }
+        box.textContent = lines.join('\n');
+    }
+}
+
+function loadSettings(settings) {
+    if (!settings) return;
+    if (settings.colorTheme) document.getElementById('colorTheme').value = settings.colorTheme;
+    if (settings.pollInterval) document.getElementById('pollInterval').value = settings.pollInterval;
+}
+
+function saveSettings() {
+    var settings = {
+        colorTheme: document.getElementById('colorTheme').value,
+        pollInterval: parseInt(document.getElementById('pollInterval').value)
+    };
+
+    if (websocket && websocket.readyState === 1) {
+        websocket.send(JSON.stringify({
+            event: "setSettings",
+            context: uuid,
+            payload: settings
+        }));
+    }
+}
+
+function debounce(func, wait) {
+    var timeout;
+    return function() {
+        var args = arguments;
+        var context = this;
+        clearTimeout(timeout);
+        timeout = setTimeout(function() { func.apply(context, args); }, wait);
+    };
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    var inputs = document.querySelectorAll('select');
+    var debouncedSave = debounce(saveSettings, 500);
+    inputs.forEach(function(input) {
+        input.addEventListener('change', saveSettings);
+        input.addEventListener('input', debouncedSave);
+    });
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,50 @@
+{
+  "$schema": "https://schemas.elgato.com/streamdeck/plugins/manifest.json",
+  "UUID": "com.teamvrotek.claudepeak",
+  "Name": "Claude Peak Ticker",
+  "Version": "1.0.0",
+  "Author": "VROTEK OÜ",
+  "Description": "Shows whether Claude is in peak or off-peak hours with a live countdown to the next change. Peak data provided by the promoclock.co API. Click the button to open claude-spend.",
+  "Category": "Claude Peak Ticker",
+  "CategoryIcon": "imgs/categoryIcon",
+  "Icon": "imgs/pluginIcon",
+  "URL": "https://github.com/teamvrotek/claude-peak-streamdeck-ticker",
+  "CodePath": "plugin.js",
+  "PropertyInspectorPath": "ui/property-inspector.html",
+  "SDKVersion": 3,
+  "Nodejs": {
+    "Version": "20"
+  },
+  "Software": {
+    "MinimumVersion": "6.9"
+  },
+  "OS": [
+    {
+      "Platform": "mac",
+      "MinimumVersion": "10.15"
+    },
+    {
+      "Platform": "windows",
+      "MinimumVersion": "10"
+    }
+  ],
+  "Actions": [
+    {
+      "Icon": "imgs/actionIcon",
+      "Name": "Peak Ticker",
+      "States": [
+        {
+          "Image": "imgs/actionDefaultImage",
+          "Title": "",
+          "TitleAlignment": "bottom",
+          "FontSize": "16",
+          "ShowTitle": false
+        }
+      ],
+      "SupportedInMultiActions": false,
+      "Tooltip": "Shows Claude peak/off-peak status with countdown to next change",
+      "UUID": "com.teamvrotek.claudepeak.monitor",
+      "PropertyInspectorPath": "ui/property-inspector.html"
+    }
+  ]
+}

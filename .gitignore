@@ -1,0 +1,29 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Build outputs
+*.streamDeckPlugin
+Release/
+
+# Logs
+*.log
+logs/
+
+# Node
+node_modules/
+package-lock.json
+*.tmp
+*.temp

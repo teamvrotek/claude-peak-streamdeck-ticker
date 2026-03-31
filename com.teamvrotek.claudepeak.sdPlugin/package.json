@@ -1,0 +1,9 @@
+{
+  "name": "claude-peak-ticker",
+  "version": "1.0.0",
+  "type": "module",
+  "private": true,
+  "dependencies": {
+    "@elgato/streamdeck": "^2.0.4"
+  }
+}
