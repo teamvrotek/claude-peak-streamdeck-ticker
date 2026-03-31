@@ -62,6 +62,11 @@ The only network request is a periodic check to [promoclock.co/api/status](https
 
 This plugin is provided as-is, without warranty of any kind. Peak hour data comes from promoclock.co and may not always reflect the actual state of Claude's rate limiting.
 
+## Credits
+
+- [claude-spend](https://github.com/writetoaniketparihar-collab/claude-spend) by Aniket Parihar, the CLI tool that opens when you press the button
+- [promoclock](https://github.com/onursendere/promoclock) by Onur Sendere, the API that provides peak/off-peak hour data
+
 ## License
 
 MIT, see [LICENSE](LICENSE).
