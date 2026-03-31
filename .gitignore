@@ -15,8 +15,6 @@ Desktop.ini
 *.swo
 
 # Build outputs
-*.streamDeckPlugin
-Release/
 
 # Logs
 *.log
