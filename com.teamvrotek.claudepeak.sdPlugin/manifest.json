@@ -2,7 +2,7 @@
   "$schema": "https://schemas.elgato.com/streamdeck/plugins/manifest.json",
   "UUID": "com.teamvrotek.claudepeak",
   "Name": "Claude Peak Ticker",
-  "Version": "1.0.0",
+  "Version": "1.1",
   "Author": "VROTEK OÜ",
   "Description": "Shows whether Claude is in peak or off-peak hours with a live countdown to the next change. Peak data provided by the promoclock.co API. Click the button to open claude-spend.",
   "Category": "Claude Peak Ticker",

@@ -5,31 +5,26 @@ const CLAUDE_LOGO_SVG = `<path fill-opacity="0.35" fill="LOGO_COLOR" transform="
 const COLOR_THEMES = {
     claude: {
         bgStart: '#2d1a0f', bgEnd: '#140c06',
-        accent: '#d97757',
         borderColor: '#d97757', borderOpacity: '0.45',
         logoColor: '#d97757'
     },
     blue: {
         bgStart: '#001a3d', bgEnd: '#000d1a',
-        accent: '#00a0f9',
         borderColor: '#00a0f9', borderOpacity: '0.45',
         logoColor: '#00a0f9'
     },
     green: {
         bgStart: '#003d1a', bgEnd: '#001a0d',
-        accent: '#00f9ab',
         borderColor: '#00f9ab', borderOpacity: '0.45',
         logoColor: '#00f9ab'
     },
     purple: {
         bgStart: '#2a003d', bgEnd: '#15001a',
-        accent: '#ab00f9',
         borderColor: '#ab00f9', borderOpacity: '0.45',
         logoColor: '#ab00f9'
     },
     teal: {
         bgStart: '#003d3d', bgEnd: '#001a1a',
-        accent: '#00f9f9',
         borderColor: '#00f9f9', borderOpacity: '0.45',
         logoColor: '#00f9f9'
     }
@@ -54,7 +49,6 @@ function renderButton(data) {
     const minutesLeft = data.minutesUntilChange || 0;
 
     const circleColor = isPeak ? '#ff4444' : '#44cc44';
-    const countdownPrefix = isPeak ? 'ends' : 'peak in';
     const countdownStr = formatCountdown(minutesLeft);
 
     const logoSvg = CLAUDE_LOGO_SVG.replace('LOGO_COLOR', theme.logoColor);
@@ -107,7 +101,6 @@ function renderButton(data) {
 
 function renderError(colorTheme, message) {
     const theme = COLOR_THEMES[colorTheme] || COLOR_THEMES.claude;
-    const logoSvg = CLAUDE_LOGO_SVG.replace('LOGO_COLOR', theme.logoColor);
 
     const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="144" height="144">
   <defs>
@@ -123,8 +116,7 @@ function renderError(colorTheme, message) {
     <rect width="144" height="144" rx="24" fill="url(#bg)"/>
     <rect x="6" y="6" width="132" height="132" rx="20"
           fill="none" stroke="${theme.borderColor}" stroke-opacity="${theme.borderOpacity}" stroke-width="1.5"/>
-    ${logoSvg}
-    <text x="72" y="80" text-anchor="middle"
+    <text x="72" y="78" text-anchor="middle"
           fill="#808080" font-weight="bold" font-size="24"
           font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif"
           >${escapeXml(message)}</text>

@@ -94,7 +94,7 @@
         <div class="sdpi-heading">Claude Peak Ticker</div>
 
         <!-- Live Status -->
-        <div class="status-box" id="statusBox">Fetching peak status...</div>
+        <div class="status-box" id="statusBox">Loading peak status...</div>
 
         <!-- Display Settings -->
         <div class="sdpi-section">
@@ -114,7 +114,7 @@
             </div>
 
             <div class="sdpi-item">
-                <div class="sdpi-item-label">Poll Interval</div>
+                <div class="sdpi-item-label">Display Refresh</div>
                 <div class="sdpi-item-value">
                     <select id="pollInterval">
                         <option value="15">15 seconds</option>
@@ -124,7 +124,7 @@
                     </select>
                 </div>
                 <div class="sdpi-info">
-                    How often the button display updates. The API is polled every 5 minutes regardless.
+                    How often the button display updates. API refreshes are scheduled separately.
                 </div>
             </div>
         </div>
@@ -179,13 +179,13 @@ function handlePluginMessage(payload) {
     var box = document.getElementById('statusBox');
 
     if (payload.type === 'statusUpdate') {
-        var d = payload.data;
+        var d = payload.data || {};
         var lines = [];
-        if (d.isPeak === null) {
-            lines.push('Status: Fetching...');
+        if (typeof d.isPeak !== 'boolean') {
+            lines.push('Status: Loading...');
         } else {
             lines.push('Status:  ' + (d.isPeak ? 'PEAK HOURS' : 'OFF-PEAK'));
-            if (d.minutesUntilChange !== null) {
+            if (typeof d.minutesUntilChange === 'number') {
                 var h = Math.floor(d.minutesUntilChange / 60);
                 var m = d.minutesUntilChange % 60;
                 var timeStr = h > 0 ? h + 'h ' + m + 'm' : m + 'm';
@@ -199,8 +199,10 @@ function handlePluginMessage(payload) {
 
 function loadSettings(settings) {
     if (!settings) return;
-    if (settings.colorTheme) document.getElementById('colorTheme').value = settings.colorTheme;
-    if (settings.pollInterval) document.getElementById('pollInterval').value = settings.pollInterval;
+    var colorTheme = document.getElementById('colorTheme');
+    var pollInterval = document.getElementById('pollInterval');
+    if (settings.colorTheme) colorTheme.value = settings.colorTheme;
+    if (settings.pollInterval) pollInterval.value = settings.pollInterval;
 }
 
 function saveSettings() {

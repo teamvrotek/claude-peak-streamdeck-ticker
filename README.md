@@ -8,7 +8,7 @@ Press the button to open `claude-spend` for a detailed spending breakdown. On ma
 
 ## How it works
 
-During peak hours, Claude Code rate limits drain faster. This plugin polls the [promoclock.co API](https://promoclock.co/api/status) every 5 minutes and shows the current status on your Stream Deck button with a countdown timer to the next change. No API keys or local file parsing needed.
+During peak hours, Claude Code rate limits drain faster. This plugin checks the [promoclock.co API](https://promoclock.co/api/status) on startup, then refreshes gently in the background while using the last good response for the live countdown. If the API is rate-limited before any cached response exists, the button falls back to the weekday 1pm-7pm UTC peak schedule. No API keys or local file parsing needed.
 
 ## What you see
 
@@ -17,7 +17,7 @@ During peak hours, Claude Code rate limits drain faster. This plugin polls the [
 | Red circle + PEAK TIME | Peak hours active, limits drain faster |
 | Green circle + OFF PEAK | Off-peak hours, normal rate limits |
 | Countdown timer | Time remaining until the status changes |
-| `...` | Waiting for first API response |
+| `loading` | Waiting for first API response |
 
 ## Install
 
@@ -34,9 +34,9 @@ Double-click the `.streamDeckPlugin` file in `Release/` to install.
 | Setting | Default | What it does |
 |---|---|---|
 | Color Theme | Claude (terracotta) | Button color scheme |
-| Poll Interval | 30 seconds | How often the button display refreshes |
+| Display Refresh | 30 seconds | How often the button display refreshes |
 
-The API is polled every 5 minutes regardless of the display refresh interval.
+API refreshes are scheduled separately from the display refresh interval.
 
 ## Color themes
 
@@ -46,7 +46,7 @@ The API is polled every 5 minutes regardless of the display refresh interval.
 
 | Button shows | What's wrong |
 |---|---|
-| `...` | Waiting for the first response from promoclock.co. Should resolve within a few seconds. |
+| `loading` | Waiting for the first response from promoclock.co. Should resolve within a few seconds. |
 | `--` | Could not reach promoclock.co. Check your internet connection. |
 
 ## Requirements
@@ -56,7 +56,7 @@ The API is polled every 5 minutes regardless of the display refresh interval.
 
 ## Privacy
 
-The only network request is a periodic check to [promoclock.co/api/status](https://promoclock.co/api/status) for peak hour detection. No authentication required, no user data sent.
+The only network request is a scheduled check to [promoclock.co/api/status](https://promoclock.co/api/status) for peak hour detection. No authentication required, no user data sent.
 
 ## Disclaimer
 
