@@ -1,5 +1,9 @@
 #!/bin/bash
 
+set -euo pipefail
+
+cd -- "$(dirname -- "${BASH_SOURCE[0]}")"
+
 # Packages the plugin into a .streamDeckPlugin file.
 
 PLUGIN_NAME="com.teamvrotek.claudepeak"
