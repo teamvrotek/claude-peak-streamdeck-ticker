@@ -2,9 +2,9 @@
   "$schema": "https://schemas.elgato.com/streamdeck/plugins/manifest.json",
   "UUID": "com.teamvrotek.claudepeak",
   "Name": "Claude Peak Ticker",
-  "Version": "1.1",
+  "Version": "1.2",
   "Author": "VROTEK OÜ",
-  "Description": "Shows whether Claude is in peak or off-peak hours with a live countdown to the next change. Peak data provided by the promoclock.co API. Click the button to open claude-spend.",
+  "Description": "See Claude’s peak and off-peak schedule from promoclock.co on your Stream Deck, with a countdown to the next change. Choose from five colour themes and set how often the display updates.\n\nPress the key to open your local claude-spend dashboard and take a closer look at your Claude Code usage. This optional shortcut needs Node.js and local Claude Code session history.\n\nRequires Stream Deck 6.9+, macOS 13+ or Windows 11 (64-bit).\n\nIf you find this useful, follow @teamvrotek on GitHub or Instagram. Your support helps us feel more special, thank you.",
   "Category": "Claude Peak Ticker",
   "CategoryIcon": "imgs/categoryIcon",
   "Icon": "imgs/pluginIcon",
@@ -21,23 +21,23 @@
   "OS": [
     {
       "Platform": "mac",
-      "MinimumVersion": "10.15"
+      "MinimumVersion": "13"
     },
     {
       "Platform": "windows",
-      "MinimumVersion": "10"
+      "MinimumVersion": "11"
     }
   ],
   "Actions": [
     {
       "Icon": "imgs/actionIcon",
-      "Name": "Peak Ticker",
+      "Name": "Peak ticker",
       "States": [
         {
           "Image": "imgs/actionDefaultImage",
           "Title": "",
           "TitleAlignment": "bottom",
-          "FontSize": "16",
+          "FontSize": 16,
           "ShowTitle": false
         }
       ],
