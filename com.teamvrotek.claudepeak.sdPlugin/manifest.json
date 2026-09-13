@@ -4,7 +4,7 @@
   "Name": "Claude Peak Ticker",
   "Version": "1.2",
   "Author": "VROTEK OÜ",
-  "Description": "See Claude’s peak and off-peak schedule from promoclock.co on your Stream Deck, with a countdown to the next change. Choose from five colour themes and set how often the display updates.\n\nPress the key to open your local claude-spend dashboard and take a closer look at your Claude Code usage. This optional shortcut needs Node.js and local Claude Code session history.\n\nRequires Stream Deck 6.9+, macOS 13+ or Windows 11 (64-bit).\n\nIf you find this useful, follow @teamvrotek on GitHub or Instagram. Your support helps us feel more special, thank you.",
+  "Description": "Track Claude’s peak and off-peak hours from promoclock.co with a live countdown. Choose from five colour themes, adjust the refresh interval and press the key to open your local claude-spend usage dashboard.",
   "Category": "Claude Peak Ticker",
   "CategoryIcon": "imgs/categoryIcon",
   "Icon": "imgs/pluginIcon",
