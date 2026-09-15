@@ -4,7 +4,7 @@
 
 <h1 align="center">Claude Peak Ticker</h1>
 
-<p align="center"><strong>Version 1.2</strong></p>
+<p align="center"><strong>Version 1.3</strong></p>
 
 See Claude’s peak and off-peak schedule from promoclock.co on your Stream Deck, with a countdown to the next change. Choose from five colour themes and set how often the display updates.
 

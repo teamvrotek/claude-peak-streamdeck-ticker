@@ -46,12 +46,37 @@
         }
 
         .sdpi-heading {
+            display: flex;
+            align-items: center;
+            gap: 9px;
             font-size: 13px;
             font-weight: 600;
             margin: 15px 0 10px 0;
             padding-bottom: 5px;
             border-bottom: 1px solid #404040;
         }
+
+        .sdpi-heading img {
+            flex: 0 0 24px;
+            object-fit: contain;
+        }
+
+        .settings-footer {
+            margin-top: 15px;
+            padding-top: 10px;
+            border-top: 1px solid #404040;
+            color: #808080;
+            font-size: 10px;
+            line-height: 1.4;
+        }
+
+        .settings-footer a {
+            color: inherit;
+            text-underline-offset: 2px;
+        }
+
+        .settings-footer a:hover { color: #d8d8d8; }
+        .settings-footer a:focus-visible { outline: 2px solid #d97757; outline-offset: 2px; }
 
         .sdpi-info {
             font-size: 10px;
@@ -91,7 +116,7 @@
 </head>
 <body>
     <div class="sdpi-wrapper">
-        <div class="sdpi-heading">Claude Peak Ticker</div>
+        <div class="sdpi-heading"><img src="../imgs/actionIcon.png" srcset="../imgs/actionIcon@2x.png 2x" width="24" height="24" alt=""><span>Claude Peak Ticker</span></div>
 
         <!-- Live Status -->
         <div class="status-box" id="statusBox">Loading peak status...</div>
@@ -132,6 +157,7 @@
         <div class="sdpi-info">
             Peak status provided by promoclock.co. Click the button to open claude-spend.
         </div>
+        <footer class="settings-footer">Follow @teamvrotek on <a href="https://github.com/teamvrotek" target="_blank" rel="noopener noreferrer">GitHub</a> or <a href="https://www.instagram.com/teamvrotek/" target="_blank" rel="noopener noreferrer">Instagram</a>.</footer>
     </div>
 
 <script>
@@ -231,6 +257,13 @@ function debounce(func, wait) {
 }
 
 document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('.settings-footer a').forEach(function(link) {
+        link.addEventListener('click', function(event) {
+            if (!websocket || websocket.readyState !== 1) return;
+            event.preventDefault();
+            websocket.send(JSON.stringify({ event: 'openUrl', payload: { url: link.href } }));
+        });
+    });
     var inputs = document.querySelectorAll('select');
     var debouncedSave = debounce(saveSettings, 500);
     inputs.forEach(function(input) {
