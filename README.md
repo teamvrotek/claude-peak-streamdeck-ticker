@@ -4,13 +4,13 @@
 
 <h1 align="center">Claude Peak Ticker</h1>
 
-<p align="center"><strong>Version 1.3</strong></p>
+<p align="center"><strong>Version 1.4</strong></p>
 
 See Claude’s peak and off-peak schedule from promoclock.co on your Stream Deck, with a countdown to the next change. Choose from five colour themes and set how often the display updates.
 
 Press the key to open your local claude-spend dashboard and take a closer look at your Claude Code usage. This optional shortcut needs Node.js and local Claude Code session history.
 
-Requires Stream Deck 6.9+, macOS 13+ or Windows 11 (64-bit).
+Requires Stream Deck 6.9+, macOS 13+ or Windows 10 or later (64-bit).
 
 If you find this useful, follow @teamvrotek on GitHub or Instagram. Your support helps us feel more special, thank you.
 
@@ -20,7 +20,7 @@ If you find this useful, follow @teamvrotek on GitHub or Instagram. Your support
 
 ## Install and set up
 
-You need **Stream Deck 6.9+** on **macOS 13+** or **Windows 11**, following [Elgato's supported platforms for Stream Deck 6.9](https://help.elgato.com/hc/en-us/articles/34904105205777-Elgato-Stream-Deck-6-9-Release-Notes). The ticker uses Stream Deck's bundled Node.js runtime. You do not need to install Node.js to display the schedule.
+You need **Stream Deck 6.9+** on **macOS 13+** or **Windows 10 or later (64-bit)**, following [Elgato's supported platforms for Stream Deck 6.9](https://help.elgato.com/hc/en-us/articles/34904105205777-Elgato-Stream-Deck-6-9-Release-Notes). The ticker uses Stream Deck's bundled Node.js runtime. You do not need to install Node.js to display the schedule.
 
 1. Install from [Elgato Marketplace](https://marketplace.elgato.com/product/claude-peak-ticker-f1446a1e-34a1-4476-b1b5-97d55575c334). To create the installer yourself, see [Build from source](#build-from-source).
 2. Find **Claude Peak Ticker** in the action list and drag **Peak ticker** onto a key.
